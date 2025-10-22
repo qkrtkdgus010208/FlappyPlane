@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     private bool isFlap = false;
 
-    private bool godMode = false;
+    public bool godMode = false;
 
     void Start()
     {
