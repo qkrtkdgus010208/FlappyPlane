@@ -2,20 +2,24 @@
 
 public class Player : MonoBehaviour
 {
-    private Animator animator = null;
-    private Rigidbody2D rigid = null;
+    Animator animator = null;
+    Rigidbody2D rigid = null;
 
-    private float flapForce = 6f;
-    private float forwardSpeed = 3f;
-    private bool isDead = false;
-    private float deathCooldown = 0f;
+    public float flapForce = 6f;
+    public float forwardSpeed = 3f;
+    public bool isDead = false;
+    float deathCooldown = 0f;
 
-    private bool isFlap = false;
+    bool isFlap = false;
 
     public bool godMode = false;
 
+    GameManager gameManager = null;
+
     void Start()
     {
+        gameManager = GameManager.Instance;
+
         animator = transform.GetComponentInChildren<Animator>();
         rigid = transform.GetComponent<Rigidbody2D>();
 
@@ -39,6 +43,7 @@ public class Player : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
                     // 게임 재시작
+                    gameManager.RestartGame();
                 }
             }
             else
@@ -86,5 +91,6 @@ public class Player : MonoBehaviour
         animator.SetInteger("IsDie", 1);
         isDead = true;
         deathCooldown = 1f;
+        gameManager.GameOver();
     }
 }
